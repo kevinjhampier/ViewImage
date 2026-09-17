@@ -45,6 +45,45 @@ function createFixture({ originalImage = true } = {}) {
     return dom.window.document;
 }
 
+function createDetachedPanelFixture() {
+    const dom = new JSDOM(`<!doctype html>
+        <html>
+            <body>
+                <main id="detached-result-panel">
+                    <div class="media">
+                        <img id="detached-original" src="${IMAGE_URL}" alt="Result">
+                    </div>
+                    <div class="details" data-title-id="ucc-6">
+                        <a class="title" href="${SOURCE_URL}" target="_blank" rel="noopener">
+                            <h1 id="ucc-6">Example title</h1>
+                        </a>
+                        <a id="detached-visit" href="${SOURCE_URL}" target="_blank" rel="noopener"
+                           aria-describedby="ucc-6" data-sb="/url?source=web">
+                            <div aria-label="Visit">
+                                <span>Visit</span>
+                                <svg viewBox="0 0 24 24"></svg>
+                            </div>
+                        </a>
+                    </div>
+                </main>
+            </body>
+        </html>`, {
+        url: 'https://www.google.com/search?q=test&udm=2',
+    });
+
+    const image = dom.window.document.querySelector('#detached-original');
+    image.getBoundingClientRect = () => ({
+        bottom: 640,
+        height: 600,
+        left: 40,
+        right: 840,
+        top: 40,
+        width: 800,
+    });
+
+    return dom.window.document;
+}
+
 function visible() {
     return true;
 }
@@ -72,6 +111,21 @@ test('adds a clean, localized and privacy-aware View image button', () => {
     assert.equal(button.hasAttribute('jsaction'), false);
     assert.equal(button.hasAttribute('ping'), false);
     assert.equal(button.nextElementSibling.id, 'visit');
+});
+
+test('supports the Google panel variant whose main image is detached from the source links', () => {
+    const document = createDetachedPanelFixture();
+    const detected = core.findActiveResult(document, visible);
+
+    assert.ok(detected);
+    assert.equal(detected.visitButton.id, 'detached-visit');
+    assert.equal(detected.image.id, 'detached-original');
+    assert.equal(detected.imageURL, IMAGE_URL);
+
+    const result = core.syncViewImageButton(document, OPTIONS, 'Ver imagen', visible);
+    assert.equal(result.state, 'added');
+    assert.equal(result.button.href, IMAGE_URL);
+    assert.equal(result.button.nextElementSibling.id, 'detached-visit');
 });
 
 test('is idempotent when Google emits unrelated mutations', () => {
