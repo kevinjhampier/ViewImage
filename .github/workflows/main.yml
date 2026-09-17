@@ -3,18 +3,18 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-  build:
-
+  build-and-test:
     runs-on: ubuntu-latest
-    
-    steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v3
 
-    - name: Install Deps
-      run: |
-        npm install globals @eslint/js @eslint/eslintrc
-        npm install eslint-plugin-json
-    - name: Lint with ESLint
-      run: |
-        npx eslint .
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint, test, build and validate
+        run: npm run check

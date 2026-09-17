@@ -14,7 +14,7 @@ const compat = new FlatCompat({
 });
 
 export default [{
-    ignores: ["node_modules/*", "**/eslint.config.mjs"],
+    ignores: ["node_modules/*", "dist/*", "**/eslint.config.mjs"],
 }, ...compat.extends("eslint:recommended"), {
     plugins: {
         json,
@@ -23,8 +23,10 @@ export default [{
     languageOptions: {
         globals: {
             ...globals.browser,
+            ...globals.node,
             chrome: false,
             browser: false,
+            ViewImageCore: false,
         },
 
         ecmaVersion: 2020,

@@ -1,0 +1,25 @@
+{
+    "name": "view-image-fixed",
+    "version": "5.3.0",
+    "private": true,
+    "description": "Maintained fork of ViewImage with support for the current Google Images result panel.",
+    "scripts": {
+        "build": "node scripts/build.mjs",
+        "check": "npm run lint && npm test && npm run validate:firefox",
+        "lint": "eslint .",
+        "test": "node --test test/*.test.cjs",
+        "validate:firefox": "npm run build && web-ext lint --source-dir dist/firefox --warnings-as-errors"
+    },
+    "devDependencies": {
+        "@eslint/eslintrc": "3.3.7",
+        "@eslint/js": "10.0.1",
+        "eslint": "10.10.0",
+        "eslint-plugin-json": "5.0.0",
+        "globals": "17.12.0",
+        "jsdom": "30.1.0",
+        "web-ext": "10.6.0"
+    },
+    "overrides": {
+        "image-size": "2.0.4"
+    }
+}

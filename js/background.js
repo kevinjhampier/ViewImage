@@ -1,4 +1,4 @@
-'use-strict';
+'use strict';
 
 //const DEBUG = true;
 
@@ -23,8 +23,10 @@ const defaultOptions = {
 };
 
 // Save default options to storage
-chrome.storage.sync.get('defaultOptions', function () {
-    chrome.storage.sync.set({ defaultOptions });
+chrome.storage.sync.get('defaultOptions', function (storage) {
+    if (!storage.defaultOptions) {
+        chrome.storage.sync.set({ defaultOptions });
+    }
 });
 
 // Deprecated for now, user feedback is that it's not useful

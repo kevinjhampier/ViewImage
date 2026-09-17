@@ -1,4 +1,4 @@
-'use-strict';
+'use strict';
 
 function toI18n(str) {
     return str.replace(/__MSG_(\w+)__/g, function (match, v1) {
@@ -8,7 +8,7 @@ function toI18n(str) {
 
 function localiseObject(obj, tag) {
     var msg = toI18n(tag);
-    if (msg != tag) obj.innerHTML = msg;
+    if (msg != tag) obj.textContent = msg;
 }
 
 var data = document.querySelectorAll('[data-localise]');

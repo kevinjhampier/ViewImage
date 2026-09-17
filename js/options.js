@@ -4,6 +4,13 @@
 let defaultOptions;
 let options;
 
+const fallbackOptions = {
+    'open-in-new-tab': true,
+    'manually-set-button-text': false,
+    'no-referrer': false,
+    'button-text-view-image': '',
+};
+
 // Load options from storage
 const load = function () {
     return new Promise(function (resolve) {
@@ -78,7 +85,7 @@ const reset = function () {
 // Load default options once when page loads, then load user options
 chrome.storage.sync.get('defaultOptions', function (storage) {
     // Get and save default options
-    defaultOptions = storage.defaultOptions;
+    defaultOptions = storage.defaultOptions || fallbackOptions;
 
     // Load options
     load();

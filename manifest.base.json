@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "__MSG_appName__",
-    "version": "5.2.0",
+    "version": "5.3.0",
     "description": "__MSG_appDesc__",
     "default_locale": "en",
     "icons": {
@@ -25,6 +25,7 @@
     "content_scripts": [
         {
             "js": [
+                "js/view-image-core.js",
                 "js/content-script.js"
             ],
             "matches": [
