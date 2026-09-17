@@ -1,9 +1,9 @@
 name: Publish to Webstores
 
+# Automatic publishing is temporarily disabled. Keep this workflow available
+# for an explicit manual run once the fork has its own store credentials.
 on:
-  push:
-    tags:
-      - 'v*'
+  workflow_dispatch:
 
 jobs:
   deploy:
