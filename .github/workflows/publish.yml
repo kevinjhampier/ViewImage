@@ -30,7 +30,7 @@ jobs:
 
     - name: Deploy to Firefox
       env:
-        APP_ID: '{287dcf75-bec6-4eec-b4f6-71948a2eea29}'
+        APP_ID: 'viewimage-fork@kevinjhampier.github.io'
         CLIENT_ID: ${{ secrets.MOZ_DEPLOY_JWT_ISSUER }}
         CLIENT_SECRET: ${{ secrets.MOZ_DEPLOY_JWT_SECRET }}
       run: |
