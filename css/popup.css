@@ -3,9 +3,43 @@ body {
     background-color: #e0e0e0;
 
     min-width: 320px;
+    max-width: 560px;
 
     margin: 0;
     width: auto;
+}
+
+.diagnostics {
+    margin-top: 8px;
+}
+
+.diagnostics p, #diagnostic-status {
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.diagnostic-actions {
+    margin: 8px 0;
+}
+
+#diagnostic-output {
+    box-sizing: border-box;
+    display: none;
+    font-family: Consolas, monospace;
+    font-size: 11px;
+    height: 220px;
+    margin-top: 8px;
+    resize: vertical;
+    width: 100%;
+}
+
+#diagnostic-output.has-report {
+    display: block;
+}
+
+button:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
 }
 
 #title {

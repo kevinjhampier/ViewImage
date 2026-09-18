@@ -128,6 +128,21 @@ test('supports the Google panel variant whose main image is detached from the so
     assert.equal(result.button.nextElementSibling.id, 'detached-visit');
 });
 
+test('exports actionable diagnostics for both Google Images panel strategies', () => {
+    const linkedReport = core.collectDiagnostics(createFixture(), visible);
+    const detachedReport = core.collectDiagnostics(createDetachedPanelFixture(), visible);
+
+    assert.equal(linkedReport.detection.strategy, 'linked-image');
+    assert.equal(linkedReport.detection.visitButton, 'a#visit');
+    assert.equal(linkedReport.imageCandidates[0].linkedActionMatches, 1);
+
+    assert.equal(detachedReport.detection.strategy, 'detached-panel');
+    assert.equal(detachedReport.detection.visitButton, 'a#detached-visit');
+    assert.equal(detachedReport.counts.extensionButtons, 0);
+    assert.equal(detachedReport.actionCandidates[0].hasMatchingHeading, true);
+    assert.equal(detachedReport.actionCandidates[0].detachedImage, 'img#detached-original');
+});
+
 test('is idempotent when Google emits unrelated mutations', () => {
     const document = createFixture();
     const first = core.syncViewImageButton(document, OPTIONS, 'View image', visible);

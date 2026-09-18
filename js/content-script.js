@@ -16,6 +16,9 @@
     };
 
     let options = { ...FALLBACK_OPTIONS };
+    let mutationCount = 0;
+    let scheduleCount = 0;
+    const syncHistory = [];
     let updateScheduled = false;
 
     function getButtonText() {
@@ -28,10 +31,28 @@
 
     function updateButton() {
         updateScheduled = false;
-        core.syncViewImageButton(document, options, getButtonText());
+        try {
+            const result = core.syncViewImageButton(document, options, getButtonText());
+            syncHistory.push({
+                imageURL: result.imageURL || '',
+                state: result.state,
+                timestamp: new Date().toISOString(),
+            });
+        } catch (error) {
+            syncHistory.push({
+                error: error instanceof Error ? error.message : String(error),
+                state: 'error',
+                timestamp: new Date().toISOString(),
+            });
+        }
+
+        if (syncHistory.length > 20) {
+            syncHistory.splice(0, syncHistory.length - 20);
+        }
     }
 
     function scheduleUpdate() {
+        scheduleCount += 1;
         if (updateScheduled) {
             return;
         }
@@ -40,7 +61,53 @@
         setTimeout(updateButton, 0);
     }
 
-    const observer = new MutationObserver(scheduleUpdate);
+    function createDiagnosticReport() {
+        return {
+            core: core.collectDiagnostics(document),
+            extension: {
+                id: chrome.runtime.id,
+                version: chrome.runtime.getManifest().version,
+            },
+            generatedAt: new Date().toISOString(),
+            observer: {
+                mutationCount,
+                scheduleCount,
+                syncHistory: [...syncHistory],
+                updateScheduled,
+            },
+            options: { ...options },
+            page: {
+                documentReadyState: document.readyState,
+                language: document.documentElement.lang || '',
+                title: document.title,
+                url: document.location.href,
+                visibilityState: document.visibilityState,
+            },
+            userAgent: navigator.userAgent,
+        };
+    }
+
+    chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+        if (message?.type !== 'view-image:collect-diagnostics') {
+            return false;
+        }
+
+        try {
+            sendResponse({ ok: true, report: createDiagnosticReport() });
+        } catch (error) {
+            sendResponse({
+                error: error instanceof Error ? `${error.name}: ${error.message}` : String(error),
+                ok: false,
+            });
+        }
+
+        return false;
+    });
+
+    const observer = new MutationObserver(function (mutations) {
+        mutationCount += mutations.length;
+        scheduleUpdate();
+    });
 
     chrome.storage.sync.get(['options', 'defaultOptions'], function (storage) {
         options = {

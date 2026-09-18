@@ -29,6 +29,17 @@
         </div>
     </div>
 
+    <div class="paper diagnostics">
+        <strong data-localise="__MSG_diagnosticsTitle__">Diagnostic mode</strong>
+        <p data-localise="__MSG_diagnosticsNotice__">The report contains the current Google Images URL and relevant image and link URLs. Review it before sharing.</p>
+        <div class="center diagnostic-actions">
+            <button type="button" id="generate-diagnostics" data-localise="__MSG_generateDiagnostics__">Generate diagnostics</button>
+            <button type="button" id="download-diagnostics" data-localise="__MSG_downloadDiagnostics__" disabled>Download .txt</button>
+        </div>
+        <div id="diagnostic-status" role="status"></div>
+        <textarea id="diagnostic-output" readonly spellcheck="false" aria-label="Diagnostic report"></textarea>
+    </div>
+
     <div id="about" class="center">
     
         <a href="https://github.com/bijij" target="_blank"><span>© 2018-present Joshua Butt</span></a>
