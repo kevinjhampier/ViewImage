@@ -28,6 +28,14 @@
 
     function updateButton() {
         updateScheduled = false;
+
+        if (!core.isSupportedImagesURL(document.location.href)) {
+            for (const button of document.querySelectorAll(`.${core.EXTENSION_CLASS}`)) {
+                button.remove();
+            }
+            return;
+        }
+
         core.syncViewImageButton(document, options, getButtonText());
     }
 

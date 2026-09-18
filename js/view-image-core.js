@@ -62,6 +62,20 @@
         }
     }
 
+    function isSupportedImagesURL(value) {
+        try {
+            const url = new URL(value);
+            const udm = url.searchParams.get('udm');
+            return url.pathname === '/imgres' ||
+                url.searchParams.get('tbm') === 'isch' ||
+                udm === '2' ||
+                udm === 'imgs' ||
+                url.searchParams.has('imgurl');
+        } catch {
+            return false;
+        }
+    }
+
     function sourceScore(source, image) {
         if (!source) {
             return Number.NEGATIVE_INFINITY;
@@ -137,6 +151,84 @@
         return candidates[0];
     }
 
+    function hasMatchingHeadingLink(actionLink) {
+        const expectedURL = normalizeURL(actionLink.href, actionLink.ownerDocument.baseURI);
+        let container = actionLink.parentElement;
+
+        for (let depth = 0; container && depth < 4; depth += 1, container = container.parentElement) {
+            const headingLink = [...container.querySelectorAll('a[href]')]
+                .filter(anchor => anchor !== actionLink)
+                .find(anchor =>
+                    normalizeURL(anchor.href, anchor.ownerDocument.baseURI) === expectedURL &&
+                    anchor.querySelector('h1, h2, h3, [role="heading"]')
+                );
+
+            if (headingLink) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    function findDetachedImage(actionLink, visibilityPredicate) {
+        let container = actionLink.parentElement;
+        let fallback;
+
+        for (let depth = 0; container && depth < 12; depth += 1, container = container.parentElement) {
+            const candidates = [...container.querySelectorAll('img[src], img[srcset]')]
+                .filter(image => !image.closest(`.${EXTENSION_CLASS}`))
+                .filter(visibilityPredicate)
+                .map(image => ({
+                    image,
+                    imageURL: getBestImageURL(actionLink, image),
+                    area: imageArea(image),
+                }))
+                .filter(candidate => candidate.imageURL)
+                .sort((left, right) => right.area - left.area);
+
+            if (!candidates.length) {
+                continue;
+            }
+
+            if (!fallback) {
+                fallback = { ...candidates[0], container };
+            }
+            const largeImage = candidates.find(candidate => candidate.area >= 4096);
+            if (largeImage) {
+                return { ...largeImage, container };
+            }
+        }
+
+        return fallback;
+    }
+
+    function findDetachedResult(root, visibilityPredicate) {
+        const actionLinks = [...root.querySelectorAll('a[href]')]
+            .filter(anchor => !anchor.classList.contains(EXTENSION_CLASS))
+            .filter(anchor => !anchor.querySelector('img'))
+            .filter(visibilityPredicate)
+            .filter(isActionLink)
+            .filter(hasMatchingHeadingLink);
+
+        for (const visitButton of actionLinks) {
+            const detachedImage = findDetachedImage(visitButton, visibilityPredicate);
+            if (!detachedImage) {
+                continue;
+            }
+
+            return {
+                container: detachedImage.container,
+                image: detachedImage.image,
+                imageLink: detachedImage.image.closest('a[href]') || visitButton,
+                imageURL: detachedImage.imageURL,
+                visitButton,
+            };
+        }
+
+        return undefined;
+    }
+
     function imageArea(image) {
         const rect = image.getBoundingClientRect();
         return rect.width * rect.height;
@@ -171,7 +263,7 @@
             }
         }
 
-        return undefined;
+        return findDetachedResult(root, visibilityPredicate);
     }
 
     function removeGoogleHandlers(element) {
@@ -313,6 +405,7 @@
         getBestImageURL,
         isElementVisible,
         isGoogleThumbnail,
+        isSupportedImagesURL,
         syncViewImageButton,
     });
 }));

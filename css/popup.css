@@ -8,12 +8,13 @@ body {
     width: auto;
 }
 
+
 #title {
     font-size: 24px;
     font-weight: bold;
 }
 
-#debug {
+#version-info {
     font-size: 12px;
     line-height: 24px;
     margin-left: 8px;
