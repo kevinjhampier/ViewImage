@@ -2,10 +2,10 @@
 
 (function () {
     const core = globalThis.ViewImageCore;
-    const coreLoadError = core ? '' : 'ViewImageCore was not loaded.';
 
-    if (coreLoadError) {
-        console.error(`ViewImage: ${coreLoadError}`);
+    if (!core) {
+        console.error('ViewImage: core module was not loaded.');
+        return;
     }
 
     const FALLBACK_OPTIONS = {
@@ -16,21 +16,7 @@
     };
 
     let options = { ...FALLBACK_OPTIONS };
-    let mutationCount = 0;
-    let scheduleCount = 0;
-    const syncHistory = [];
     let updateScheduled = false;
-
-    function recordSync(entry) {
-        syncHistory.push({
-            timestamp: new Date().toISOString(),
-            ...entry,
-        });
-
-        if (syncHistory.length > 20) {
-            syncHistory.splice(0, syncHistory.length - 20);
-        }
-    }
 
     function getButtonText() {
         if (options['manually-set-button-text'] && options['button-text-view-image'].trim()) {
@@ -43,35 +29,17 @@
     function updateButton() {
         updateScheduled = false;
 
-        if (!core) {
-            recordSync({ error: coreLoadError, state: 'core-unavailable' });
-            return;
-        }
-
         if (!core.isSupportedImagesURL(document.location.href)) {
             for (const button of document.querySelectorAll(`.${core.EXTENSION_CLASS}`)) {
                 button.remove();
             }
-            recordSync({ state: 'unsupported-url' });
             return;
         }
 
-        try {
-            const result = core.syncViewImageButton(document, options, getButtonText());
-            recordSync({
-                imageURL: result.imageURL || '',
-                state: result.state,
-            });
-        } catch (error) {
-            recordSync({
-                error: error instanceof Error ? error.message : String(error),
-                state: 'error',
-            });
-        }
+        core.syncViewImageButton(document, options, getButtonText());
     }
 
     function scheduleUpdate() {
-        scheduleCount += 1;
         if (updateScheduled) {
             return;
         }
@@ -80,55 +48,7 @@
         setTimeout(updateButton, 0);
     }
 
-    function createDiagnosticReport() {
-        return {
-            core: core?.collectDiagnostics ? core.collectDiagnostics(document) : null,
-            coreLoadError,
-            extension: {
-                id: chrome.runtime.id,
-                version: chrome.runtime.getManifest().version,
-            },
-            generatedAt: new Date().toISOString(),
-            observer: {
-                mutationCount,
-                scheduleCount,
-                syncHistory: [...syncHistory],
-                updateScheduled,
-            },
-            options: { ...options },
-            page: {
-                documentReadyState: document.readyState,
-                language: document.documentElement.lang || '',
-                title: document.title,
-                url: document.location.href,
-                supportedImagesURL: core?.isSupportedImagesURL?.(document.location.href) || false,
-                visibilityState: document.visibilityState,
-            },
-            userAgent: navigator.userAgent,
-        };
-    }
-
-    chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
-        if (message?.type !== 'view-image:collect-diagnostics') {
-            return false;
-        }
-
-        try {
-            sendResponse({ ok: true, report: createDiagnosticReport() });
-        } catch (error) {
-            sendResponse({
-                error: error instanceof Error ? `${error.name}: ${error.message}` : String(error),
-                ok: false,
-            });
-        }
-
-        return false;
-    });
-
-    const observer = new MutationObserver(function (mutations) {
-        mutationCount += mutations.length;
-        scheduleUpdate();
-    });
+    const observer = new MutationObserver(scheduleUpdate);
 
     chrome.storage.sync.get(['options', 'defaultOptions'], function (storage) {
         options = {

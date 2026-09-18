@@ -18,8 +18,7 @@
         "default_popup": "html/popup.html"
     },
     "permissions": [
-        "storage",
-        "activeTab"
+        "storage"
     ],
     "options_ui": {
         "page": "html/options.html"

@@ -46,26 +46,5 @@
     "optionsButton": {
         "message": "Configuración",
         "description": "Text displayed on the link to options button."
-    },
-    "diagnosticsTitle": {
-        "message": "Modo de diagnóstico"
-    },
-    "diagnosticsNotice": {
-        "message": "El informe contiene la URL actual de Google Imágenes y las URLs relevantes de imágenes y enlaces. Revísalo antes de compartirlo."
-    },
-    "generateDiagnostics": {
-        "message": "Generar diagnóstico"
-    },
-    "downloadDiagnostics": {
-        "message": "Descargar .txt"
-    },
-    "diagnosticsCollecting": {
-        "message": "Recopilando diagnóstico…"
-    },
-    "diagnosticsReady": {
-        "message": "Informe de diagnóstico listo."
-    },
-    "diagnosticsUnavailable": {
-        "message": "El script de contenido no respondió. Exporta este informe porque el error es útil."
     }
 }

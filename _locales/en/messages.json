@@ -54,26 +54,5 @@
     "optionsButton": {
         "message": "Options",
         "description": "Text displayed on the link to options button."
-    },
-    "diagnosticsTitle": {
-        "message": "Diagnostic mode"
-    },
-    "diagnosticsNotice": {
-        "message": "The report contains the current Google Images URL and relevant image and link URLs. Review it before sharing."
-    },
-    "generateDiagnostics": {
-        "message": "Generate diagnostics"
-    },
-    "downloadDiagnostics": {
-        "message": "Download .txt"
-    },
-    "diagnosticsCollecting": {
-        "message": "Collecting diagnostics…"
-    },
-    "diagnosticsReady": {
-        "message": "Diagnostic report ready."
-    },
-    "diagnosticsUnavailable": {
-        "message": "The content script did not respond. Export this report because the error is useful."
     }
 }

@@ -16,8 +16,8 @@ test('identifies the maintained functional fork in extension metadata', () => {
     assert.equal(manifest.homepage_url, 'https://github.com/kevinjhampier/ViewImage');
 });
 
-test('injects diagnostics on Google pages before applying the Images URL gate in code', () => {
-    assert.equal(manifest.permissions.includes('activeTab'), true);
+test('injects on Google pages and applies the Images URL gate in code', () => {
+    assert.deepEqual(manifest.permissions, ['storage']);
     assert.equal('include_globs' in manifest.content_scripts[0], false);
     assert.match(manifest.content_scripts[0].matches[0], /google/);
 });
