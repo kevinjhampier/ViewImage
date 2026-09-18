@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "__MSG_appName__",
-    "version": "5.3.2",
+    "version": "5.3.3",
     "description": "Functional fork of View Image, updated for the current Google Images interface.",
     "default_locale": "en",
     "icons": {
@@ -18,7 +18,8 @@
         "default_popup": "html/popup.html"
     },
     "permissions": [
-        "storage"
+        "storage",
+        "activeTab"
     ],
     "options_ui": {
         "page": "html/options.html"
@@ -217,11 +218,6 @@
                 "*://*.google.co.zm/*",
                 "*://*.google.co.zw/*",
                 "*://*.google.cat/*"
-            ],
-            "include_globs": [
-                "*tbm=isch*",
-                "*imgres?*",
-                "*udm=2*"
             ]
         }
     ]

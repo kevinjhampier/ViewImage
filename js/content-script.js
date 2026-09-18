@@ -2,10 +2,10 @@
 
 (function () {
     const core = globalThis.ViewImageCore;
+    const coreLoadError = core ? '' : 'ViewImageCore was not loaded.';
 
-    if (!core) {
-        console.error('ViewImage: core module was not loaded.');
-        return;
+    if (coreLoadError) {
+        console.error(`ViewImage: ${coreLoadError}`);
     }
 
     const FALLBACK_OPTIONS = {
@@ -21,6 +21,29 @@
     const syncHistory = [];
     let updateScheduled = false;
 
+    function isSupportedImagesURL(value = document.location.href) {
+        try {
+            const url = new URL(value);
+            return url.pathname === '/imgres' ||
+                url.searchParams.get('tbm') === 'isch' ||
+                url.searchParams.get('udm') === '2' ||
+                url.searchParams.has('imgurl');
+        } catch {
+            return false;
+        }
+    }
+
+    function recordSync(entry) {
+        syncHistory.push({
+            timestamp: new Date().toISOString(),
+            ...entry,
+        });
+
+        if (syncHistory.length > 20) {
+            syncHistory.splice(0, syncHistory.length - 20);
+        }
+    }
+
     function getButtonText() {
         if (options['manually-set-button-text'] && options['button-text-view-image'].trim()) {
             return options['button-text-view-image'].trim();
@@ -31,23 +54,31 @@
 
     function updateButton() {
         updateScheduled = false;
-        try {
-            const result = core.syncViewImageButton(document, options, getButtonText());
-            syncHistory.push({
-                imageURL: result.imageURL || '',
-                state: result.state,
-                timestamp: new Date().toISOString(),
-            });
-        } catch (error) {
-            syncHistory.push({
-                error: error instanceof Error ? error.message : String(error),
-                state: 'error',
-                timestamp: new Date().toISOString(),
-            });
+
+        if (!core) {
+            recordSync({ error: coreLoadError, state: 'core-unavailable' });
+            return;
         }
 
-        if (syncHistory.length > 20) {
-            syncHistory.splice(0, syncHistory.length - 20);
+        if (!isSupportedImagesURL()) {
+            for (const button of document.querySelectorAll(`.${core.EXTENSION_CLASS}`)) {
+                button.remove();
+            }
+            recordSync({ state: 'unsupported-url' });
+            return;
+        }
+
+        try {
+            const result = core.syncViewImageButton(document, options, getButtonText());
+            recordSync({
+                imageURL: result.imageURL || '',
+                state: result.state,
+            });
+        } catch (error) {
+            recordSync({
+                error: error instanceof Error ? error.message : String(error),
+                state: 'error',
+            });
         }
     }
 
@@ -63,7 +94,8 @@
 
     function createDiagnosticReport() {
         return {
-            core: core.collectDiagnostics(document),
+            core: core?.collectDiagnostics ? core.collectDiagnostics(document) : null,
+            coreLoadError,
             extension: {
                 id: chrome.runtime.id,
                 version: chrome.runtime.getManifest().version,
@@ -81,6 +113,7 @@
                 language: document.documentElement.lang || '',
                 title: document.title,
                 url: document.location.href,
+                supportedImagesURL: isSupportedImagesURL(),
                 visibilityState: document.visibilityState,
             },
             userAgent: navigator.userAgent,

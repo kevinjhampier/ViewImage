@@ -21,7 +21,7 @@ function message(name, fallback) {
     return chrome.i18n.getMessage(name) || fallback;
 }
 
-function createUnavailableReport(error) {
+function createUnavailableReport(error, tab) {
     return {
         error,
         extension: {
@@ -30,6 +30,11 @@ function createUnavailableReport(error) {
         },
         generatedAt: new Date().toISOString(),
         status: 'content-script-unreachable',
+        tab: tab ? {
+            id: tab.id,
+            title: tab.title || '',
+            url: tab.url || '',
+        } : null,
         userAgent: navigator.userAgent,
     };
 }
@@ -63,7 +68,7 @@ document.getElementById('generate-diagnostics').addEventListener('click', functi
         const tab = tabs?.[0];
 
         if (queryError || !tab?.id) {
-            showReport(createUnavailableReport(queryError?.message || 'No active tab was returned.'));
+            showReport(createUnavailableReport(queryError?.message || 'No active tab was returned.', tab));
             return;
         }
 
@@ -72,6 +77,7 @@ document.getElementById('generate-diagnostics').addEventListener('click', functi
             if (messageError || !response?.ok) {
                 showReport(createUnavailableReport(
                     messageError?.message || response?.error || 'The content script returned no report.',
+                    tab,
                 ));
                 return;
             }

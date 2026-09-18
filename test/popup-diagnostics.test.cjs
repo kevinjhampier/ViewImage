@@ -24,7 +24,7 @@ function createPopup(response, runtimeError) {
         },
         runtime: {
             getManifest() {
-                return { version: '5.3.2' };
+                return { version: '5.3.3' };
             },
             getPlatformInfo(callback) {
                 callback({ nacl_arch: 'x86-64', os: 'win' });
@@ -35,7 +35,11 @@ function createPopup(response, runtimeError) {
         },
         tabs: {
             query(query, callback) {
-                callback([{ id: 42 }]);
+                callback([{
+                    id: 42,
+                    title: 'Google Images result',
+                    url: 'https://www.google.com/search?q=test&udm=2',
+                }]);
             },
             sendMessage(tabId, message, callback) {
                 dom.window.chrome.runtime.lastError = runtimeError ? { message: runtimeError } : null;
@@ -74,5 +78,6 @@ test('produces an exportable error report when the content script is unreachable
     const output = document.querySelector('#diagnostic-output');
     assert.match(output.value, /"status": "content-script-unreachable"/);
     assert.match(output.value, /Could not establish connection/);
+    assert.match(output.value, /https:\/\/www\.google\.com\/search\?q=test&udm=2/);
     assert.equal(document.querySelector('#download-diagnostics').disabled, false);
 });
