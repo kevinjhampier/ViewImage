@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "__MSG_appName__",
-    "version": "5.3.3",
+    "version": "5.3.4",
     "description": "Functional fork of View Image, updated for the current Google Images interface.",
     "default_locale": "en",
     "icons": {

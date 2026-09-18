@@ -88,6 +88,15 @@ function visible() {
     return true;
 }
 
+test('recognizes current and legacy Google Images URL modes', () => {
+    assert.equal(core.isSupportedImagesURL('https://www.google.com/search?q=test&udm=imgs'), true);
+    assert.equal(core.isSupportedImagesURL('https://www.google.com/search?q=test&udm=2'), true);
+    assert.equal(core.isSupportedImagesURL('https://www.google.com/search?q=test&tbm=isch'), true);
+    assert.equal(core.isSupportedImagesURL('https://www.google.com/imgres?imgurl=https://example.com/a.jpg'), true);
+    assert.equal(core.isSupportedImagesURL('https://www.google.com/search?q=test'), false);
+    assert.equal(core.isSupportedImagesURL('not a URL'), false);
+});
+
 test('finds the active result semantically and prefers the original image URL', () => {
     const document = createFixture();
     const result = core.findActiveResult(document, visible);

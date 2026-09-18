@@ -21,18 +21,6 @@
     const syncHistory = [];
     let updateScheduled = false;
 
-    function isSupportedImagesURL(value = document.location.href) {
-        try {
-            const url = new URL(value);
-            return url.pathname === '/imgres' ||
-                url.searchParams.get('tbm') === 'isch' ||
-                url.searchParams.get('udm') === '2' ||
-                url.searchParams.has('imgurl');
-        } catch {
-            return false;
-        }
-    }
-
     function recordSync(entry) {
         syncHistory.push({
             timestamp: new Date().toISOString(),
@@ -60,7 +48,7 @@
             return;
         }
 
-        if (!isSupportedImagesURL()) {
+        if (!core.isSupportedImagesURL(document.location.href)) {
             for (const button of document.querySelectorAll(`.${core.EXTENSION_CLASS}`)) {
                 button.remove();
             }
@@ -113,7 +101,7 @@
                 language: document.documentElement.lang || '',
                 title: document.title,
                 url: document.location.href,
-                supportedImagesURL: isSupportedImagesURL(),
+                supportedImagesURL: core?.isSupportedImagesURL?.(document.location.href) || false,
                 visibilityState: document.visibilityState,
             },
             userAgent: navigator.userAgent,

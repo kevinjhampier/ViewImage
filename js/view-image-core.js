@@ -62,6 +62,20 @@
         }
     }
 
+    function isSupportedImagesURL(value) {
+        try {
+            const url = new URL(value);
+            const udm = url.searchParams.get('udm');
+            return url.pathname === '/imgres' ||
+                url.searchParams.get('tbm') === 'isch' ||
+                udm === '2' ||
+                udm === 'imgs' ||
+                url.searchParams.has('imgurl');
+        } catch {
+            return false;
+        }
+    }
+
     function sourceScore(source, image) {
         if (!source) {
             return Number.NEGATIVE_INFINITY;
@@ -506,6 +520,7 @@
         getBestImageURL,
         isElementVisible,
         isGoogleThumbnail,
+        isSupportedImagesURL,
         syncViewImageButton,
     });
 }));

@@ -24,7 +24,7 @@ function createPopup(response, runtimeError) {
         },
         runtime: {
             getManifest() {
-                return { version: '5.3.3' };
+                return { version: '5.3.4' };
             },
             getPlatformInfo(callback) {
                 callback({ nacl_arch: 'x86-64', os: 'win' });
