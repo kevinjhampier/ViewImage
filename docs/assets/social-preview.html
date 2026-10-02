@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1280, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>View Image — social preview artwork</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { width: 1280px; height: 640px; margin: 0; overflow: hidden; }
+    body { font-family: "Segoe UI", Arial, sans-serif; background: #f4f3e9; color: #202a23; }
+    .canvas { position: relative; width: 1280px; height: 640px; padding: 46px 54px; isolation: isolate; }
+    .canvas::before { content: ""; position: absolute; z-index: -1; width: 690px; height: 690px; border-radius: 50%; background: #deebad; left: 760px; top: -90px; }
+    .brand { display: flex; align-items: center; gap: 14px; font-size: 28px; font-weight: 700; letter-spacing: -1px; }
+    .brand img { width: 42px; height: 42px; }
+    .brand span { font: 12px Consolas, monospace; letter-spacing: 1.8px; font-weight: normal; margin-left: 9px; padding-left: 19px; border-left: 1px solid #bfc7b5; }
+    .copy { position: absolute; left: 56px; top: 154px; width: 585px; }
+    .eyebrow { display: flex; align-items: center; gap: 9px; font: 12px Consolas, monospace; letter-spacing: 2px; margin: 0 0 24px; }
+    .eyebrow::before { content: ""; width: 8px; height: 8px; background: #638431; border-radius: 50%; }
+    h1 { font-size: 65px; line-height: 1.04; letter-spacing: -3.2px; font-weight: 700; margin: 0 0 24px; }
+    h1 em { font-family: Georgia, serif; font-weight: 400; }
+    .description { font-size: 21px; line-height: 1.48; color: #52604c; max-width: 490px; margin: 0; }
+    .description strong { color: #202a23; font-weight: 600; }
+    .platforms { display: flex; gap: 10px; margin-top: 30px; }
+    .pill { display: inline-flex; align-items: center; gap: 9px; height: 38px; padding: 0 13px; background: #fffef8; border: 1px solid #cbd2bf; border-radius: 7px; font-size: 13px; font-weight: 600; }
+    .pill svg { width: 18px; height: 18px; }
+    .demo { position: absolute; top: 64px; right: 54px; width: 510px; margin: 0; background: white; border: 1px solid #bac5a8; border-radius: 14px; overflow: hidden; box-shadow: 0 18px 42px #26360c1f; }
+    .toolbar { height: 38px; display: flex; gap: 17px; align-items: center; padding: 0 16px; color: #556245; background: #edf1e4; font: 10px Consolas, monospace; border-bottom: 1px solid #d7dfca; }
+    .dots { display: flex; gap: 5px; }
+    .dots i { width: 6px; height: 6px; background: #a5b38f; border-radius: 50%; }
+    .demo img { display: block; width: 508px; height: auto; }
+    .caption { height: 37px; display: flex; align-items: center; gap: 8px; padding: 0 16px; background: #fffef8; font-size: 11px; color: #52604c; border-top: 1px solid #e3e6db; }
+    .caption svg { width: 14px; height: 14px; color: #567329; }
+    .footer { position: absolute; left: 56px; right: 56px; bottom: 32px; padding-top: 19px; border-top: 1px solid #cbd2bd; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: #5a6553; }
+    .footer strong { font-weight: 500; color: #303e28; }
+    .url { font: 14px Consolas, monospace; letter-spacing: -0.2px; color: #26351f; }
+  </style>
+</head>
+<body>
+  <main class="canvas">
+    <div class="brand"><img src="icon.png" alt="">View Image<span>MAINTAINED</span></div>
+    <div class="copy">
+      <p class="eyebrow">THE GOOGLE IMAGES SHORTCUT, RESTORED</p>
+      <h1>One click.<br>The <em>actual</em> image.</h1>
+      <p class="description">Bring <strong>“View image”</strong> back.<br>Open the original image right from<br>Google’s preview panel.</p>
+      <div class="platforms">
+        <span class="pill"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M18 3l-2 4-5-3 1 5-5-1C3 10 3 17 7 20c5 4 14 1 14-6 0-4-2-8-3-11Z" fill="#ff8a35"/><path d="M16 10c-6-4-10 2-7 6 2 3 8 2 8-2-1 2-5 2-5-1 0-2 2-3 4-3Z" fill="#5d43b0"/></svg>Firefox <span style="font-weight:400;color:#52604c">· Mozilla-signed</span></span>
+        <span class="pill"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#e3ebd6"/><path d="M12 2a10 10 0 019 5H10l-4 7L3 7a10 10 0 019-5" fill="#dc6359"/><path d="M21 7a10 10 0 01-9 15l5-9-7-6" fill="#d7b555"/><path d="M12 22a10 10 0 01-9-15l5 9h9" fill="#73a57b"/><circle cx="12" cy="12" r="5" fill="#fffef8"/><circle cx="12" cy="12" r="3.6" fill="#6095c9"/></svg>Chromium</span>
+      </div>
+    </div>
+    <figure class="demo">
+      <div class="toolbar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>Google Images · with View Image</div>
+      <img src="example.png" width="743" height="629" alt="Real Google Images preview with the restored View image button">
+      <figcaption class="caption"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="2"/></svg>The original image is one click away.</figcaption>
+    </figure>
+    <footer class="footer"><span><strong>Free &amp; open source</strong> · MIT licensed · Maintained by Kevin Elias</span><span class="url">kevinjhampier.github.io/ViewImage</span></footer>
+  </main>
+</body>
+</html>
