@@ -8,6 +8,7 @@
         "build:site": "node scripts/build-site.mjs",
         "check:site": "node scripts/check-site.mjs",
         "preview:site": "node scripts/preview-site.mjs",
+        "render:social": "node scripts/render-social-preview.mjs",
         "check": "npm run lint && npm test && npm run validate:firefox",
         "lint": "eslint .",
         "test": "node --test test/*.test.cjs",

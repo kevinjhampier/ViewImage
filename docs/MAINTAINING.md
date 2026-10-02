@@ -25,8 +25,20 @@ wording if the signing or distribution method changes.
 `docs/assets/social-preview.png` is a 1280 x 640 repository/site sharing card.
 It is set in the site's Open Graph/Twitter tags and should also be uploaded at
 GitHub repository Settings → Social preview → Edit → Upload an image.
-The sharing card can be regenerated on Windows with
-`./scripts/render-social-preview.ps1` (built-in .NET drawing and system fonts).
+The sharing card is a real browser capture of `docs/assets/social-preview.html`,
+which uses the supplied Google Images screenshot rather than a placeholder.
+To regenerate it on Windows, use Node.js 24, Microsoft Edge, and Playwright:
+
+```sh
+npm install --no-save --package-lock=false playwright
+npm run render:social
+```
+
+Playwright is an optional artwork tool, not an extension dependency. The script
+starts an isolated headless Edge instance, waits for fonts and both images, and
+writes a 1280 x 640 PNG. An existing Playwright installation can instead be used
+by setting `PLAYWRIGHT_MODULE` to its module directory. The current image was
+rendered with Playwright 1.62.1 and the Windows Segoe UI / Georgia fonts.
 
 ## Google Search Console
 
