@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>View Image – Maintained Google Images Extension</title>
+  <meta name="description" content="A maintained View Image extension for the current Google Images interface. Restore direct image viewing on Firefox and Chromium. Free and open source.">
+  <meta name="theme-color" content="#f5f4ec">
+  <link rel="canonical" href="https://kevinjhampier.github.io/ViewImage/">
+  <link rel="icon" href="assets/icon.png" type="image/png">
+  <link rel="stylesheet" href="assets/site.css">
+  <link rel="sitemap" type="application/xml" href="https://kevinjhampier.github.io/ViewImage/sitemap.xml">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="View Image">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="View Image – Maintained Google Images Extension">
+  <meta property="og:description" content="A maintained View Image extension for the current Google Images interface. Restore direct image viewing on Firefox and Chromium. Free and open source.">
+  <meta property="og:url" content="https://kevinjhampier.github.io/ViewImage/">
+  <meta property="og:image" content="https://kevinjhampier.github.io/ViewImage/assets/social-preview.png">
+  <meta property="og:image:width" content="1280">
+  <meta property="og:image:height" content="640">
+  <meta property="og:image:alt" content="View Image: one click to the actual image. A maintained extension for Firefox and Chromium.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="View Image – Maintained Google Images Extension">
+  <meta name="twitter:description" content="A maintained View Image extension for the current Google Images interface. Restore direct image viewing on Firefox and Chromium. Free and open source.">
+  <meta name="twitter:image" content="https://kevinjhampier.github.io/ViewImage/assets/social-preview.png">
+  
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": [
+    "SoftwareApplication",
+    "BrowserApplication"
+  ],
+  "name": "View Image",
+  "url": "https://kevinjhampier.github.io/ViewImage/",
+  "description": "A maintained View Image extension for the current Google Images interface. Restore direct image viewing on Firefox and Chromium. Free and open source.",
+  "applicationCategory": "UtilitiesApplication",
+  "softwareVersion": "5.3.4",
+  "operatingSystem": "Windows, macOS, Linux",
+  "browserRequirements": "Desktop Firefox or Chromium-based browser",
+  "isAccessibleForFree": true,
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Joshua Butt"
+  },
+  "maintainer": {
+    "@type": "Person",
+    "name": "Kevin Elias"
+  },
+  "license": "https://github.com/kevinjhampier/ViewImage/blob/master/LICENSE",
+  "subjectOf": {
+    "@type": "SoftwareSourceCode",
+    "codeRepository": "https://github.com/kevinjhampier/ViewImage",
+    "programmingLanguage": "JavaScript"
+  },
+  "downloadUrl": "https://github.com/kevinjhampier/ViewImage/releases/download/v5.3.4/ViewImage-5.3.4-firefox.xpi",
+  "screenshot": "https://kevinjhampier.github.io/ViewImage/assets/example.png",
+  "image": "https://kevinjhampier.github.io/ViewImage/assets/social-preview.png"
+}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><a class="brand" href="./"><img src="assets/icon.png" width="32" height="32" alt="">View Image<span class="brand-note">/ maintained</span></a><nav aria-label="Main navigation"><a href="install.html">Install</a><a href="how-it-works.html">How it works</a><a href="troubleshooting.html">Help</a><a class="github-link" href="https://github.com/kevinjhampier/ViewImage">GitHub <span aria-hidden="true">↗</span></a></nav></header>
+  <main id="main">
+<section class="hero">
+  <div class="hero-copy">
+    <p class="eyebrow"><span class="status-dot"></span> A maintained browser extension</p>
+    <h1>One click.<br>The <em>actual</em> image.</h1>
+    <p class="lead">Bring the <strong>View image</strong> button back to Google Images. Open the original image directly, without the extra detour.</p>
+    <div class="actions"><a class="button primary" href="https://github.com/kevinjhampier/ViewImage/releases/download/v5.3.4/ViewImage-5.3.4-firefox.xpi">Install for Firefox <span aria-hidden="true">↗</span></a><a class="button secondary" href="install.html#chromium">Install for Chromium <span aria-hidden="true">↗</span></a></div>
+    <p class="download-note">Firefox: Mozilla-signed XPI · Chromium: load unpacked<br>Free &amp; open source · Desktop browsers · v5.3.4</p>
+  </div>
+  <figure class="demo">
+    <div class="demo-toolbar"><span class="window-dots" aria-hidden="true">● ● ●</span><span>Google Images / with View Image</span><span aria-hidden="true">↗</span></div>
+    <img src="assets/example.png" width="743" height="629" alt="Google Images preview showing the restored View image button next to Visit for a Doge image from Wikipedia" fetchpriority="high">
+    <figcaption><span class="status-dot"></span> The button is back, right where you need it.</figcaption>
+  </figure>
+</section>
+<div class="trust-strip"><span>Firefox + Chromium</span><span>MIT licensed</span><span>No analytics in the extension</span><a href="https://github.com/kevinjhampier/ViewImage">Readable source code <span aria-hidden="true">↗</span></a></div>
+<section class="section intro" id="about">
+  <p class="eyebrow">A familiar feature, kept working</p>
+  <div class="split"><h2>Google changed.<br>View Image caught up.</h2><div><p>The original ViewImage extension restored a useful shortcut: opening an image directly from Google’s preview. As Google changed its result panels, the old implementation stopped finding the right controls.</p><p>This independent continuation, maintained by Kevin Elias, updates the detection for today’s panel variants, including <code>udm=imgs</code>. It identifies the selected image and its matching destination action, then keeps the button in sync as you browse results.</p><p>It continues <a href="https://github.com/bijij/ViewImage">Joshua Butt’s original project</a>. It is not an official Google product or an upstream release. Version 5.3.4 restores direct image viewing; Google’s own Lens tools remain separate.</p></div></div>
+</section>
+<section class="section" id="features">
+  <p class="eyebrow">Small extension. Useful details.</p>
+  <div class="features">
+    <article><span class="feature-number">01 / DIRECT</span><h3>Go to the image</h3><p>Open the full-size image URL when Google exposes it. A missing original is handled safely instead of linking to a Google thumbnail.</p></article>
+    <article><span class="feature-number">02 / ADAPTIVE</span><h3>Keep browsing</h3><p>The button follows the selected result and supports detached preview panels. No duplicate buttons as the page updates.</p></article>
+    <article><span class="feature-number">03 / YOUR CHOICE</span><h3>Make it yours</h3><p>Choose a new tab, hide the referrer, or set custom button text. Otherwise, the label follows your browser’s language.</p></article>
+  </div>
+</section>
+<section class="section resources">
+  <div><p class="eyebrow">Get started in a minute</p><h2>A guide for every step.</h2><p>Choose your browser, install the extension, reload Google Images, and open a result.</p></div>
+  <div class="resource-list"><a href="install.html"><span><strong>Install View Image</strong><small>Signed Firefox package or Chromium ZIP</small></span><span aria-hidden="true">↗</span></a><a href="troubleshooting.html"><span><strong>Button not showing?</strong><small>Page access, panel variants, and private browsing</small></span><span aria-hidden="true">↗</span></a><a href="how-it-works.html"><span><strong>How it works</strong><small>Inside the current Google Images fix</small></span><span aria-hidden="true">↗</span></a></div>
+</section>
+<section class="release-callout"><div><p class="eyebrow">Latest release / 5.3.4</p><h2>Ready for your browser.</h2><p>Current URL modes, detached panels, localized text, and a Mozilla-signed Firefox package.</p></div><a class="button primary" href="https://github.com/kevinjhampier/ViewImage/releases/tag/v5.3.4">View release <span aria-hidden="true">↗</span></a><a class="text-link" href="changelog.html">Read the changelog →</a></section></main>
+  <footer class="site-footer"><div><a class="brand" href="./">View Image</a><p>A useful button, maintained by Kevin Elias.<br>Continuing Joshua Butt’s ViewImage · <a href="https://github.com/kevinjhampier/ViewImage/blob/master/LICENSE">MIT license</a></p></div><nav aria-label="Footer navigation"><a href="privacy.html">Privacy</a><a href="changelog.html">Changelog</a><a href="https://github.com/kevinjhampier/ViewImage/blob/master/CONTRIBUTING.md">Contribute</a><a href="https://github.com/kevinjhampier/ViewImage">Source code <span aria-hidden="true">↗</span></a></nav><p class="disclaimer">Independent project. Not affiliated with Google or Mozilla. Third-party screenshot content belongs to its respective owners.</p></footer>
+</body>
+</html>

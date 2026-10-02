@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How View Image Works with Current Google Images Panels</title>
+  <meta name="description" content="Learn how this maintained ViewImage extension detects Google Images previews, resolves original image URLs, and updates the restored button.">
+  <meta name="theme-color" content="#f5f4ec">
+  <link rel="canonical" href="https://kevinjhampier.github.io/ViewImage/how-it-works.html">
+  <link rel="icon" href="assets/icon.png" type="image/png">
+  <link rel="stylesheet" href="assets/site.css">
+  <link rel="sitemap" type="application/xml" href="https://kevinjhampier.github.io/ViewImage/sitemap.xml">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="View Image">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="How View Image Works with Current Google Images Panels">
+  <meta property="og:description" content="Learn how this maintained ViewImage extension detects Google Images previews, resolves original image URLs, and updates the restored button.">
+  <meta property="og:url" content="https://kevinjhampier.github.io/ViewImage/how-it-works.html">
+  <meta property="og:image" content="https://kevinjhampier.github.io/ViewImage/assets/social-preview.png">
+  <meta property="og:image:width" content="1280">
+  <meta property="og:image:height" content="640">
+  <meta property="og:image:alt" content="View Image: one click to the actual image. A maintained extension for Firefox and Chromium.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How View Image Works with Current Google Images Panels">
+  <meta name="twitter:description" content="Learn how this maintained ViewImage extension detects Google Images previews, resolves original image URLs, and updates the restored button.">
+  <meta name="twitter:image" content="https://kevinjhampier.github.io/ViewImage/assets/social-preview.png">
+  
+  
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><a class="brand" href="./"><img src="assets/icon.png" width="32" height="32" alt="">View Image<span class="brand-note">/ maintained</span></a><nav aria-label="Main navigation"><a href="install.html">Install</a><a href="how-it-works.html" aria-current="page">How it works</a><a href="troubleshooting.html">Help</a><a class="github-link" href="https://github.com/kevinjhampier/ViewImage">GitHub <span aria-hidden="true">↗</span></a></nav></header>
+  <main id="main"><article class="article"><p class="eyebrow">Under the hood / readable code</p><h1>A small fix,<br>built to adapt.</h1><p class="lead">The maintained implementation follows the relationships in Google’s preview panel instead of assuming a particular obfuscated CSS class will stay the same.</p>
+<section><h2>1. Recognize an Images page</h2><p>The content script is declared for Google pages, then gates its behavior using <code>isSupportedImagesURL</code>. This supports current <code>udm=imgs</code> and <code>udm=2</code> searches alongside legacy <code>tbm=isch</code> and image-result URLs. A Google page without an Images mode does not receive the button.</p></section>
+<section><h2>2. Identify the selected preview</h2><p><code>view-image-core.js</code> examines visible images and links to identify the active result and its destination action. It supports a panel variant where the main image is separate from the title and visit links. Original-image candidates are validated so a Google thumbnail is not used as the final link.</p></section>
+<section><h2>3. Add a clean View image link</h2><p>The extension adapts the destination button’s presentation, removes Google event handlers and tracking attributes from the copy, sets the direct image URL, and applies your new-tab and referrer choices. The text comes from the browser’s localization API or your custom label.</p></section>
+<section><h2>4. Stay in sync</h2><p>A MutationObserver schedules updates when Google replaces the preview or changes relevant attributes. A signature for the selected result and settings avoids unnecessary button replacement. Stale buttons are removed when the preview closes or changes.</p></section>
+<section><h2>Limits and regression checks</h2><p>Google changes its layout independently, and an unavailable full-size URL cannot be reconstructed reliably from a thumbnail alone. DOM fixtures test current and detached panels, localized text, result changes, duplicate prevention, and missing originals. Real-browser testing remains necessary for new variants.</p><a class="button secondary" href="https://github.com/kevinjhampier/ViewImage/tree/master/test">Explore the tests <span aria-hidden="true">↗</span></a></section></article></main>
+  <footer class="site-footer"><div><a class="brand" href="./">View Image</a><p>A useful button, maintained by Kevin Elias.<br>Continuing Joshua Butt’s ViewImage · <a href="https://github.com/kevinjhampier/ViewImage/blob/master/LICENSE">MIT license</a></p></div><nav aria-label="Footer navigation"><a href="privacy.html">Privacy</a><a href="changelog.html">Changelog</a><a href="https://github.com/kevinjhampier/ViewImage/blob/master/CONTRIBUTING.md">Contribute</a><a href="https://github.com/kevinjhampier/ViewImage">Source code <span aria-hidden="true">↗</span></a></nav><p class="disclaimer">Independent project. Not affiliated with Google or Mozilla. Third-party screenshot content belongs to its respective owners.</p></footer>
+</body>
+</html>

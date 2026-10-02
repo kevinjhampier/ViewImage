@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>View Image Privacy – Permissions and Local Preferences</title>
+  <meta name="description" content="Understand View Image permissions, preference synchronization, referrer controls, and what happens when you open an original image.">
+  <meta name="theme-color" content="#f5f4ec">
+  <link rel="canonical" href="https://kevinjhampier.github.io/ViewImage/privacy.html">
+  <link rel="icon" href="assets/icon.png" type="image/png">
+  <link rel="stylesheet" href="assets/site.css">
+  <link rel="sitemap" type="application/xml" href="https://kevinjhampier.github.io/ViewImage/sitemap.xml">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="View Image">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="View Image Privacy – Permissions and Local Preferences">
+  <meta property="og:description" content="Understand View Image permissions, preference synchronization, referrer controls, and what happens when you open an original image.">
+  <meta property="og:url" content="https://kevinjhampier.github.io/ViewImage/privacy.html">
+  <meta property="og:image" content="https://kevinjhampier.github.io/ViewImage/assets/social-preview.png">
+  <meta property="og:image:width" content="1280">
+  <meta property="og:image:height" content="640">
+  <meta property="og:image:alt" content="View Image: one click to the actual image. A maintained extension for Firefox and Chromium.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="View Image Privacy – Permissions and Local Preferences">
+  <meta name="twitter:description" content="Understand View Image permissions, preference synchronization, referrer controls, and what happens when you open an original image.">
+  <meta name="twitter:image" content="https://kevinjhampier.github.io/ViewImage/assets/social-preview.png">
+  
+  
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><a class="brand" href="./"><img src="assets/icon.png" width="32" height="32" alt="">View Image<span class="brand-note">/ maintained</span></a><nav aria-label="Main navigation"><a href="install.html">Install</a><a href="how-it-works.html">How it works</a><a href="troubleshooting.html">Help</a><a class="github-link" href="https://github.com/kevinjhampier/ViewImage">GitHub <span aria-hidden="true">↗</span></a></nav></header>
+  <main id="main"><article class="article"><p class="eyebrow">Privacy / plain language</p><h1>Your images.<br>Your browser.</h1><p class="lead">The extension does not include analytics, advertising, telemetry, or a service that collects your searches or images.</p>
+<section><h2>What the extension reads</h2><p>A content script runs on supported Google pages and checks whether the URL represents an Images result. It reads the selected preview, image URLs, and destination links in the page’s DOM to create the View image link. This processing happens in your browser.</p><p>The extension does not send those page details to a maintainer-controlled server. Opening an image follows its original URL, so your browser makes a normal request to that image’s host.</p></section>
+<section><h2>Permissions and preferences</h2><p>The only requested API permission is <code>storage</code>. Content-script URL matches separately determine the Google pages the extension can access. Preferences such as custom button text and new-tab behavior are stored using <code>chrome.storage.sync</code>.</p><p>If browser synchronization is enabled, Firefox or Chromium may synchronize these preferences through the browser account. This is managed by the browser; it is not the extension’s own data-collection service.</p></section>
+<section><h2>Referrer controls</h2><p>The generated link removes copied Google event and tracking attributes. In Settings, enable the option to hide the referrer if you want the link to use <code>noreferrer</code>. This option is not enabled by default. The image host still receives a normal network request, including information your browser normally sends.</p></section>
+<section><h2>This website and downloads</h2><p>This website has no analytics scripts, external fonts, or advertising. It is hosted on GitHub Pages; GitHub processes normal hosting and download requests under its <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">privacy statement</a>. Downloads are served by GitHub Releases.</p></section>
+<section><h2>Verify the code</h2><p>The source is public and MIT licensed. Review <a href="https://github.com/kevinjhampier/ViewImage/blob/master/js/content-script.js">the content script</a>, <a href="https://github.com/kevinjhampier/ViewImage/blob/master/js/view-image-core.js">panel detection</a>, and <a href="https://github.com/kevinjhampier/ViewImage/blob/master/js/options.js">preferences code</a>. For questions, <a href="https://github.com/kevinjhampier/ViewImage/issues">open an issue</a> without sharing private browsing information.</p></section></article></main>
+  <footer class="site-footer"><div><a class="brand" href="./">View Image</a><p>A useful button, maintained by Kevin Elias.<br>Continuing Joshua Butt’s ViewImage · <a href="https://github.com/kevinjhampier/ViewImage/blob/master/LICENSE">MIT license</a></p></div><nav aria-label="Footer navigation"><a href="privacy.html">Privacy</a><a href="changelog.html">Changelog</a><a href="https://github.com/kevinjhampier/ViewImage/blob/master/CONTRIBUTING.md">Contribute</a><a href="https://github.com/kevinjhampier/ViewImage">Source code <span aria-hidden="true">↗</span></a></nav><p class="disclaimer">Independent project. Not affiliated with Google or Mozilla. Third-party screenshot content belongs to its respective owners.</p></footer>
+</body>
+</html>
