@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>View Image Troubleshooting – Missing Button and Browser Access</title>
+  <meta name="description" content="Find out why the View Image button is missing in Google Images. Check browser access, private browsing, unsupported previews, and extension conflicts.">
+  <meta name="theme-color" content="#f5f4ec">
+  <link rel="canonical" href="https://kevinjhampier.github.io/ViewImage/troubleshooting.html">
+  <link rel="icon" href="assets/icon.png" type="image/png">
+  <link rel="stylesheet" href="assets/site.css">
+  <link rel="sitemap" type="application/xml" href="https://kevinjhampier.github.io/ViewImage/sitemap.xml">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="View Image">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="View Image Troubleshooting – Missing Button and Browser Access">
+  <meta property="og:description" content="Find out why the View Image button is missing in Google Images. Check browser access, private browsing, unsupported previews, and extension conflicts.">
+  <meta property="og:url" content="https://kevinjhampier.github.io/ViewImage/troubleshooting.html">
+  <meta property="og:image" content="https://kevinjhampier.github.io/ViewImage/assets/social-preview.png">
+  <meta property="og:image:width" content="1280">
+  <meta property="og:image:height" content="640">
+  <meta property="og:image:alt" content="View Image: one click to the actual image. A maintained extension for Firefox and Chromium.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="View Image Troubleshooting – Missing Button and Browser Access">
+  <meta name="twitter:description" content="Find out why the View Image button is missing in Google Images. Check browser access, private browsing, unsupported previews, and extension conflicts.">
+  <meta name="twitter:image" content="https://kevinjhampier.github.io/ViewImage/assets/social-preview.png">
+  
+  
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><a class="brand" href="./"><img src="assets/icon.png" width="32" height="32" alt="">View Image<span class="brand-note">/ maintained</span></a><nav aria-label="Main navigation"><a href="install.html">Install</a><a href="how-it-works.html">How it works</a><a href="troubleshooting.html" aria-current="page">Help</a><a class="github-link" href="https://github.com/kevinjhampier/ViewImage">GitHub <span aria-hidden="true">↗</span></a></nav></header>
+  <main id="main"><article class="article"><p class="eyebrow">Help / Google Images</p><h1>Find the missing button.</h1><p class="lead">Google serves different result layouts. Start with page access and the selected preview, then narrow down the cause.</p>
+<section><h2>After installing or updating</h2><ol><li>Confirm that View Image is enabled in the browser’s extension manager.</li><li>Reload the Google Images tab. Pages already open before installation may not yet contain the content script.</li><li>Open the Images results tab and select an image. The button belongs to the expanded preview, not every thumbnail.</li><li>Check that the extension is allowed to run on your current Google domain. Browser site-access settings can prevent injection.</li></ol></section>
+<section><h2>Works privately, but not in normal browsing?</h2><p>This does not by itself prove another extension is responsible. Google may serve different preview structures or URL modes to different sessions. Version 5.3.4 supports <code>udm=imgs</code>, <code>udm=2</code>, <code>tbm=isch</code>, and <code>imgres</code>.</p><p>Compare the same search and selected result in both sessions. Check site access in the normal window, then temporarily disable other page-modifying extensions while leaving View Image enabled. If it still fails, report the specific panel variant. Firefox private browsing also requires explicit permission for this extension.</p></section>
+<section><h2>The button is disabled or the image will not open</h2><p>If Google only exposes a thumbnail, the extension disables the link instead of pretending it found the original. Select another result or use Visit. A destination server can also reject direct image requests or require a session; View Image cannot override that server’s access rules.</p></section>
+<section><h2>The text is in another language</h2><p>The extension uses the browser’s interface language. Google’s page language is independent. You can override the label in the extension’s settings with custom button text.</p></section>
+<section><h2>Report a reproducible issue</h2><p>Include browser and extension versions, steps to reproduce, whether it occurs in a private window, and the URL mode. Add a screenshot or sanitized DOM example when useful. Remove private search terms, personal links, account information, cookies, and tokens.</p><a class="button secondary" href="https://github.com/kevinjhampier/ViewImage/issues/new/choose">Report an issue <span aria-hidden="true">↗</span></a><p>For security problems, use <a href="https://github.com/kevinjhampier/ViewImage/security/advisories/new">private vulnerability reporting</a>.</p></section></article></main>
+  <footer class="site-footer"><div><a class="brand" href="./">View Image</a><p>A useful button, maintained by Kevin Elias.<br>Continuing Joshua Butt’s ViewImage · <a href="https://github.com/kevinjhampier/ViewImage/blob/master/LICENSE">MIT license</a></p></div><nav aria-label="Footer navigation"><a href="privacy.html">Privacy</a><a href="changelog.html">Changelog</a><a href="https://github.com/kevinjhampier/ViewImage/blob/master/CONTRIBUTING.md">Contribute</a><a href="https://github.com/kevinjhampier/ViewImage">Source code <span aria-hidden="true">↗</span></a></nav><p class="disclaimer">Independent project. Not affiliated with Google or Mozilla. Third-party screenshot content belongs to its respective owners.</p></footer>
+</body>
+</html>

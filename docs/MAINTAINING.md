@@ -1,0 +1,56 @@
+# Maintaining the website
+
+The site is a dependency-free static website served by GitHub Pages from
+`master:/docs`. Its canonical URL is https://kevinjhampier.github.io/ViewImage/.
+The extension and website have separate build commands.
+
+## Updating content
+
+Edit `scripts/build-site.mjs` and `docs/assets/site.css`, then run:
+
+```sh
+npm run build:site
+npm run check:site
+npm run preview:site
+```
+
+Commit the generated HTML, sitemap, and robots file with the source changes.
+The preview server listens at `http://127.0.0.1:4178/ViewImage/`.
+The site generator reads the extension version from `manifest.base.json`.
+When publishing a new version, confirm that the corresponding release assets
+exist before updating download links. Update the changelog and signed-package
+wording if the signing or distribution method changes.
+
+`docs/assets/example.png` is the user-supplied demonstration screenshot.
+`docs/assets/social-preview.png` is a 1280 x 640 repository/site sharing card.
+It is set in the site's Open Graph/Twitter tags and should also be uploaded at
+GitHub repository Settings → Social preview → Edit → Upload an image.
+The sharing card can be regenerated on Windows with
+`./scripts/render-social-preview.ps1` (built-in .NET drawing and system fonts).
+
+## Google Search Console
+
+1. Create a **URL-prefix** property for exactly
+   `https://kevinjhampier.github.io/ViewImage/` in
+   [Search Console](https://search.google.com/search-console).
+2. Choose the **HTML tag** verification method. The verification token is tied
+   to the owner's Google account and cannot be invented or borrowed.
+3. Save the token's `content` value in `docs/search-console-verification.txt`.
+   The generator will add a real `google-site-verification` meta tag to the
+   home page when that file exists. Keep it in the repository after verification.
+4. Run `npm run build:site`, commit, and publish. Confirm that the tag is visible
+   in the deployed home-page source before pressing **Verify**.
+5. Submit `https://kevinjhampier.github.io/ViewImage/sitemap.xml` under **Sitemaps**.
+6. Inspect the home-page URL and request indexing. Discovery, indexing, and
+   search appearance are controlled by Google, and are not immediate or guaranteed.
+
+The project path does not control the domain-root `robots.txt` on github.io.
+The site also links the sitemap directly from its HTML metadata.
+
+## Structured data
+
+The home page includes SoftwareApplication / BrowserApplication JSON-LD with
+the actual version, platform support, free price, download link, MIT license,
+maintainer, screenshot, and source repository. It does not invent ratings or
+reviews. Without genuine review/rating data it does not claim eligibility for
+Google's software-app rich results.

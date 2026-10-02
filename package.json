@@ -5,6 +5,9 @@
     "description": "Maintained fork of ViewImage with support for the current Google Images result panel.",
     "scripts": {
         "build": "node scripts/build.mjs",
+        "build:site": "node scripts/build-site.mjs",
+        "check:site": "node scripts/check-site.mjs",
+        "preview:site": "node scripts/preview-site.mjs",
         "check": "npm run lint && npm test && npm run validate:firefox",
         "lint": "eslint .",
         "test": "node --test test/*.test.cjs",
