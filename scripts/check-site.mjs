@@ -7,7 +7,7 @@ import { JSDOM } from 'jsdom';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const docs = path.join(root, 'docs');
 const site = 'https://kevinjhampier.github.io/ViewImage/';
-const pages = readdirSync(docs).filter(file => file.endsWith('.html'));
+const pages = readdirSync(docs).filter(file => file.endsWith('.html') && !/^google[a-f0-9]+\.html$/.test(file));
 const titles = new Set();
 const descriptions = new Set();
 let links = 0;

@@ -42,6 +42,16 @@ rendered with Playwright 1.62.1 and the Windows Segoe UI / Georgia fonts.
 
 ## Google Search Console
 
+The current URL-prefix property uses Google's **HTML file** verification method.
+Keep `docs/google5528e3117fb93b11.html` in the published site, including after
+verification succeeds. It must remain accessible at
+`https://kevinjhampier.github.io/ViewImage/google5528e3117fb93b11.html`.
+It is a verification resource, not a content page, and is excluded from the sitemap
+and the content-page metadata checks. After the file is deployed, press **Verify**
+in Search Console and submit the sitemap URL below.
+
+The HTML-tag alternative remains available if a different property needs it:
+
 1. Create a **URL-prefix** property for exactly
    `https://kevinjhampier.github.io/ViewImage/` in
    [Search Console](https://search.google.com/search-console).
